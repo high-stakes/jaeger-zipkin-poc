@@ -1,0 +1,45 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    coderay (1.1.2)
+    google-protobuf (3.7.1)
+    googleapis-common-protos-types (1.0.3)
+      google-protobuf (~> 3.0)
+    grpc (1.19.0)
+      google-protobuf (~> 3.1)
+      googleapis-common-protos-types (~> 1.0.0)
+    grpc-opentracing (1.0.0)
+      grpc
+      method-tracer (~> 1.1)
+      multi_json
+      opentracing (~> 0.3.1)
+    jaeger-client (0.10.0)
+      opentracing (~> 0.3)
+      thrift
+    json (2.2.0)
+    method-tracer (1.1.2)
+      opentracing (~> 0.3.1)
+    method_source (0.9.2)
+    multi_json (1.13.1)
+    opentracing (0.3.2)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    thrift (0.11.0.0)
+    zipkin (1.6.1)
+      json
+      opentracing (~> 0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  grpc
+  grpc-opentracing
+  jaeger-client
+  opentracing
+  pry
+  zipkin
+
+BUNDLED WITH
+   2.0.1

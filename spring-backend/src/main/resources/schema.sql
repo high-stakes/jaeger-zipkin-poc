@@ -1,0 +1,1 @@
+create table customers ( id INT NOT NULL);

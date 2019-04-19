@@ -1,0 +1,8 @@
+source "https://rubygems.org"
+
+gem 'zipkin'
+gem 'grpc-opentracing'
+gem 'opentracing'
+gem 'grpc'
+gem 'jaeger-client'
+gem 'pry'
