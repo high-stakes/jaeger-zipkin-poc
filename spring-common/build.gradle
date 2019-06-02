@@ -1,0 +1,51 @@
+apply plugin: 'com.google.protobuf'
+apply plugin: 'idea'
+
+dependencies {
+  compile group: 'io.zipkin.brave', name: 'brave-instrumentation-grpc', version: '5.6.3'
+  compile group: 'io.zipkin.brave', name: 'brave-instrumentation-p6spy', version: '5.6.3'
+  compile 'org.pac4j:pac4j-jwt:3.6.1'
+  compile 'org.pac4j:spring-security-pac4j:4.1.0'
+  compile "com.h2database:h2"
+
+  compile "org.springframework.boot:spring-boot-starter-jdbc"
+  compile 'org.springframework.boot:spring-boot-starter-security'
+  compile 'org.springframework.cloud:spring-cloud-starter-sleuth'
+  compile 'org.springframework.cloud:spring-cloud-sleuth-zipkin'
+  compile 'org.springframework.kafka:spring-kafka'
+
+  compile 'io.github.lognet:grpc-spring-boot-starter:3.2.2'
+  runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+sourceSets {
+  main {
+    proto {
+      srcDir "${projectDir.getParentFile().absolutePath}/proto"
+    }
+  }
+}
+
+idea {
+  module {
+    sourceDirs += file("${projectDir}/src/generated/main/java");
+    sourceDirs += file("${projectDir}/src/generated/main/grpc");
+  }
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:3.7.1"
+  }
+  plugins {
+    grpc {
+      artifact = 'io.grpc:protoc-gen-grpc-java:1.20.0'
+    }
+  }
+  generateProtoTasks {
+    all()*.plugins {
+      grpc {}
+    }
+  }
+  generatedFilesBaseDir = "$projectDir/src/generated"
+}

@@ -1,0 +1,37 @@
+apply plugin: 'base'
+
+configurations {
+  springBackend
+  springBackend2
+  nodeBackend
+  rubyBackend
+}
+
+dependencies {
+  springBackend project(configuration: 'dockerDigest', path: ':spring-backend')
+  springBackend2 project(configuration: 'dockerDigest', path: ':spring-backend-2')
+  nodeBackend project(configuration: 'dockerDigest', path: ':node-backend')
+  rubyBackend project(configuration: 'dockerDigest', path: ':ruby-backend')
+}
+
+task kubePrepare(type: Copy) {
+  from 'dev/kustomization.tmpl.yml'
+  into 'dev'
+  dependsOn configurations.springBackend
+  dependsOn configurations.springBackend2
+  dependsOn configurations.nodeBackend
+  rename { 'kustomization.yml' }
+  doFirst {
+    expand(
+            'springBackendDigest': configurations.springBackend.files.text.first(),
+            'springBackend2Digest': configurations.springBackend2.files.text.first(),
+            'nodeBackendDigest': configurations.nodeBackend.files.text.first()
+    )
+  }
+  outputs.upToDateWhen {false}
+}
+
+task kubeDeploy(type: Exec) {
+  dependsOn kubePrepare
+  commandLine 'kubectl', 'apply', '-k', 'dev'
+}

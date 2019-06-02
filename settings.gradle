@@ -1,0 +1,6 @@
+include 'spring-common'
+include 'spring-backend'
+include 'spring-backend-2'
+include 'node-backend'
+include 'kubernetes-deploy'
+include 'ruby-backend'

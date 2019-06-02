@@ -1,0 +1,7 @@
+resources:
+  - node-backend.yml
+  - spring-backend.yml
+  - spring-backend-2.yml
+  - jaeger.yaml
+  - kafka.yaml
+  - zookeeper.yaml

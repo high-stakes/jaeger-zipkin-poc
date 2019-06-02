@@ -56,7 +56,7 @@ class B3TextMapCodec
 end
 
 OpenTracing.global_tracer = Jaeger::Client.build(
-                              host: 'localhost',
+                              host: 'zipkin',
                               port: 6831,
                               service_name: 'ruby-backend',
                               extractors: {

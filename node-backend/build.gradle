@@ -1,0 +1,20 @@
+apply plugin: "com.palantir.docker"
+
+def protoSpec = copySpec {
+  from('../proto')
+  into('proto')
+}
+
+def srcSpec = copySpec {
+  from('src')
+  into('src')
+}
+
+def mainSpec = copySpec {
+  with(protoSpec, srcSpec)
+}
+
+docker {
+  files project.files('package.json', 'package-lock.json')
+  copySpec.with(mainSpec)
+}

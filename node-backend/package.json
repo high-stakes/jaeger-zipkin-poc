@@ -1,8 +1,8 @@
 {
-  "name": "backend",
+  "name": "node-backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {
     "browser-process-hrtime": "^0.1.2",
     "express": "^4.16.4",
@@ -26,8 +26,10 @@
     "eslint-plugin-react": "^6.2.0"
   },
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "browserify": "browserify browser.js -o ./public/bundle.js"
+    "browserify": "browserify src/browser.js -o src/public/bundle.js",
+    "build": "npm run browserify"
   },
   "author": "",
   "license": "ISC"

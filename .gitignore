@@ -1,5 +1,6 @@
 node_modules
 build
+**/*/src/generated
 bin
 .gradle
 .vscode
@@ -40,3 +41,5 @@ HELP.md
 
 lib
 *.tmp-*
+
+kubernetes-deploy/dev/kustomization.yml

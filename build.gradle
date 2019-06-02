@@ -1,0 +1,64 @@
+buildscript {
+  repositories {
+    jcenter()
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:2.1.3.RELEASE"
+    classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.22.1"
+  }
+}
+
+subprojects {
+  apply plugin: 'java'
+  apply plugin: 'io.spring.dependency-management'
+
+  group = 'com.example'
+  version = '0.0.1'
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencyManagement {
+    imports {
+      mavenBom "org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR1"
+      mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE'
+    }
+  }
+
+  plugins.withId('com.palantir.docker') {
+    configurations {
+      dockerDigest
+    }
+
+    docker {
+      name project.name
+    }
+
+    task dockerDigest(type: Exec) {
+      ext.outputFile = file("${buildDir}/docker.digest")
+      dependsOn tasks.docker
+      commandLine 'docker', 'inspect',"--format='{{index .Id}}'", "${project.name}:latest"
+      standardOutput new ByteArrayOutputStream()
+      doLast {
+        ext.text = standardOutput.toString().hashCode().abs()
+        outputFile.text = text
+      }
+    }
+
+    task dockerDigestTag(type: Exec) {
+      doFirst {
+        commandLine 'docker', 'tag', project.name, "${project.name}:${dockerDigest.text}"
+      }
+    }
+    dockerDigest.finalizedBy dockerDigestTag
+
+    artifacts {
+      dockerDigest(dockerDigest.outputFile) {
+        builtBy dockerDigest
+      }
+    }
+  }
+}

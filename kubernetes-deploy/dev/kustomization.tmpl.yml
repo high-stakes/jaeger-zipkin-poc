@@ -1,0 +1,10 @@
+bases:
+  - ../base
+
+images:
+  - name: spring-backend
+    newTag: '${springBackendDigest}'
+  - name: spring-backend-2
+    newTag: '${springBackend2Digest}'
+  - name: node-backend
+    newTag: '${nodeBackendDigest}'

@@ -1,1 +1,1 @@
-# jaeger-zipkin-poc
+# Kubernetes & microservice sandbox
