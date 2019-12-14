@@ -1,0 +1,9 @@
+apiVersion: kibana.k8s.elastic.co/v1alpha1
+kind: Kibana
+metadata:
+  name: kibana-default
+spec:
+  version: 7.5.0
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch-default

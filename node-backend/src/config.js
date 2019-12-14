@@ -10,7 +10,7 @@ const tracer = new Tracer({
   ctxImpl: new CLSContext(),
   recorder: new BatchRecorder({
     logger: new HttpLogger({
-      endpoint: 'http://zipkin:9411/api/v2/spans',
+      endpoint: 'http://simple-prod-collector:9411/api/v2/spans',
       jsonEncoder: JSON_V2,
       httpInterval: 100
     })

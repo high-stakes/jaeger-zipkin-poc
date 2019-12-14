@@ -5,3 +5,5 @@ resources:
   - jaeger.yaml
   - kafka.yaml
   - zookeeper.yaml
+  - elasticsearch.yaml
+  - kibana.yaml
