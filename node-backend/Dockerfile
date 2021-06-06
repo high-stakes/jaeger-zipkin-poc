@@ -1,4 +1,4 @@
-FROM node:11 as build
+FROM node:14.16 as build
 
 WORKDIR /usr/src/app
 
@@ -9,7 +9,7 @@ COPY proto/ ../proto
 RUN ls -la ..
 RUN npm run build
 
-FROM node:11
+FROM node:14.16
 
 COPY --from=build /usr/src /usr/src
 WORKDIR /usr/src/app
